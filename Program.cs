@@ -117,6 +117,7 @@ void Start()
     koniec = false;
     wygrana = false;
 
+    //Dziennik.Reset();
     for (int i = 0; i < odwiedzonePokoje.Length; i++)
         odwiedzonePokoje[i] = false;
     odwiedzonePokoje[0] = true;
