@@ -62,6 +62,7 @@ while (true)
         case "napraw": Akcja("napraw"); break;
         case "wyjdz": Akcja("wyjdz"); break;
         case "odkrycia": PokazOdkrycia(); break;
+        // case "dziennik": WyswietlWpisy(); break;
         default: Console.WriteLine("Nieznane polecenie. Wpisz pomoc."); break;
     }
 }
@@ -95,6 +96,16 @@ void PokazOdkrycia()
     }
     Console.WriteLine();
 }
+
+// void WyswietlWpisy()
+// {
+//     Console.WriteLine("Dziennik:");
+//     for(int i = 0; i<Dziennik.LiczbaWpisow; i++)
+//     {
+//         Console.WriteLine($"{Dziennik.LiczbaWpisow-i}. {Dziennik.PobierzWpis(i)}");
+//     }
+// }
+
 
 void Start()
 {
@@ -244,6 +255,7 @@ void Mapa()
     for (int numer = 1; numer <= 4; numer++) 
     {
         string odkryte = odwiedzonePokoje[numer-1] ? "odkryty" : "nieodkryty";
+        // string odkryte = CzyOdwiedzono(numer-1) ? "odkryty" : "nieodkryty";
         if (numer == pokoj)
             Console.WriteLine($"{numer}. {NazwaPokoju(numer)} ({odkryte})  <-- jestes tutaj");
         else
@@ -308,11 +320,13 @@ void Idz(string kierunek)
     ostatniaCzynnosc = $"Ruch w {kierunek} do pomieszczenia {NazwaPokoju(nastepnyPokoj)}";
     pokoj = nastepnyPokoj;
     odwiedzonePokoje[pokoj-1] = true;
+    //Odwiedz(pokoj-1);
     Rozejrzyj();
     ZakonczTure();
 }
 
 // SEKCJA C: PRZEDMIOTY I WYGRANA. Wlasciciel: osoba C.
+// Dodanie wpisow w liniach: 335, 348, 370, 391
 void Akcja(string co)
 {
     if(koniec)
@@ -331,6 +345,7 @@ void Akcja(string co)
         karta = true;
         Console.WriteLine("Zabierasz karte.");
 
+        // Dziennik.DodajWpis("Zabranie karty");
         ostatniaCzynnosc = "Zabranie karty";
         ZakonczTure();
         return;
@@ -344,6 +359,7 @@ void Akcja(string co)
         }
         bezpiecznik = true;
         Console.WriteLine("Zabierasz bezpiecznik.");
+        // Dziennik.DodajWpis("Zabranie bezpiecznika");
         ostatniaCzynnosc = "Zabranie bezpiecznika";
         ZakonczTure();
         return;
@@ -366,6 +382,7 @@ void Akcja(string co)
         bezpiecznik = false;
         zasilanie = true;
         
+        // Dziennik.DodajWpis("Naprawa zasilania");
         ostatniaCzynnosc = "Naprawa zasilania";
         Console.WriteLine("Naprawiasz zasilanie!");
 
@@ -387,6 +404,8 @@ void Akcja(string co)
             Console.WriteLine("Zasilanie jest wyłączone, nie możesz wyjść.");            
             return;
         }
+
+        // Dziennik.DodajWpis("Wyjście i wygrana");
         ostatniaCzynnosc = "Wyjście i wygrana";
         wygrana = true;
         koniec = true;
