@@ -21,7 +21,6 @@ string[] pokoje = {
 bool[] odwiedzonePokoje = new bool[pokoje.Length];
 int licznikOdrzuconychProbRuchu = 0;
 
-bool brakWiadomosci = false;
 
 
 // SEKCJA 0: GOTOWY SILNIK NAUCZYCIELA. Nie zmieniaj w zadaniu podstawowym.
@@ -97,12 +96,6 @@ void PokazOdkrycia()
     Console.WriteLine();
 }
 
-void WriteIfNoTest(string msg)
-{
-    if (!brakWiadomosci)
-        Console.WriteLine(msg);
-}
-
 void Start()
 {
     pokoj = 1;
@@ -120,26 +113,26 @@ void Start()
     licznikOdrzuconychProbRuchu = 0;
     ostatniaCzynnosc = "Brak — początek rozgrywki";
 
-    WriteIfNoTest("UCIECZKA Z SERWEROWNI: PIATEK, 16:59.");
-    WriteIfNoTest("Administrator napisal: u mnie dziala. Drzwi twierdza inaczej.");
-    WriteIfNoTest("Masz " + MAKS_ENERGIA + " energii. Wpisz pomoc. Koniec zamyka program.");
+    Console.WriteLine("UCIECZKA Z SERWEROWNI: PIATEK, 16:59.");
+    Console.WriteLine("Administrator napisal: u mnie dziala. Drzwi twierdza inaczej.");
+    Console.WriteLine("Masz " + MAKS_ENERGIA + " energii. Wpisz pomoc. Koniec zamyka program.");
     Rozejrzyj();
 }
 
 void ZakonczTure()
 {
     energia = energia - 1;
-    WriteIfNoTest("Pozostala energia: " + energia);
+    Console.WriteLine("Pozostala energia: " + energia);
 
     if (wygrana)
     {
         koniec = true;
-        WriteIfNoTest("WYGRANA! Drzwi otwarte. Weekend uratowany.");
+        Console.WriteLine("WYGRANA! Drzwi otwarte. Weekend uratowany.");
     }
     else if (energia <= 0)
     {
         koniec = true;
-        WriteIfNoTest("PRZEGRANA. Energia sie skonczyla. Wpisz start albo koniec.");
+        Console.WriteLine("PRZEGRANA. Energia sie skonczyla. Wpisz start albo koniec.");
     }
 }
 
@@ -262,8 +255,6 @@ void Mapa()
 
 void Rozejrzyj()
 {
-    if (brakWiadomosci)
-        return;
 
     Console.WriteLine("\nJestes w: " + NazwaPokoju(pokoj));
 
@@ -303,13 +294,13 @@ void Idz(string kierunek)
     else if(kierunek == "prawo") nastepnyPokoj++;
     else
     {
-        WriteIfNoTest("Zly kierunek!");
+        Console.WriteLine("Zly kierunek!");
         return;
     }
 
     if(nastepnyPokoj < 1 || nastepnyPokoj > 4) 
     {
-        WriteIfNoTest($"Jestes na granicy! Nie możesz isc w {kierunek}");
+        Console.WriteLine($"Jestes na granicy! Nie możesz isc w {kierunek}");
         licznikOdrzuconychProbRuchu++;
         return;
     }
@@ -326,7 +317,7 @@ void Akcja(string co)
 {
     if(koniec)
     {
-        WriteIfNoTest("Gra została zakończona.");
+        Console.WriteLine("Gra została zakończona.");
         return; 
     }
 
@@ -334,11 +325,11 @@ void Akcja(string co)
     {
         if(pokoj != 1 || karta)
         {
-            WriteIfNoTest("Tutaj nie ma karty do zebrania.");
+            Console.WriteLine("Tutaj nie ma karty do zebrania.");
             return;
         }
         karta = true;
-        WriteIfNoTest("Zabierasz karte.");
+        Console.WriteLine("Zabierasz karte.");
 
         ostatniaCzynnosc = "Zabranie karty";
         ZakonczTure();
@@ -348,11 +339,11 @@ void Akcja(string co)
     {
         if(pokoj != 2 || bezpiecznik || zasilanie)
         {
-            WriteIfNoTest("Tutaj nie ma bezpiecznika do zebrania.");
+            Console.WriteLine("Tutaj nie ma bezpiecznika do zebrania.");
             return;
         }
         bezpiecznik = true;
-        WriteIfNoTest("Zabierasz bezpiecznik.");
+        Console.WriteLine("Zabierasz bezpiecznik.");
         ostatniaCzynnosc = "Zabranie bezpiecznika";
         ZakonczTure();
         return;
@@ -361,22 +352,22 @@ void Akcja(string co)
     {
         if(pokoj != 3)
         {
-            WriteIfNoTest("Nie możesz naprawić zasilania w tym pokoju.");
+            Console.WriteLine("Nie możesz naprawić zasilania w tym pokoju.");
             return;
         }else if(zasilanie)
         {
-            WriteIfNoTest("Zasilanie jest włączone.");
+            Console.WriteLine("Zasilanie jest włączone.");
             return;
         }else if (!bezpiecznik)
         {
-            WriteIfNoTest("Nie masz bezpiecznika.");
+            Console.WriteLine("Nie masz bezpiecznika.");
             return;
         }
         bezpiecznik = false;
         zasilanie = true;
         
         ostatniaCzynnosc = "Naprawa zasilania";
-        WriteIfNoTest("Naprawiasz zasilanie!");
+        Console.WriteLine("Naprawiasz zasilanie!");
 
         ZakonczTure();
         return;
@@ -385,15 +376,15 @@ void Akcja(string co)
     {
         if(pokoj != 4)
         {
-            WriteIfNoTest("Nie możesz wyjść z tego pokoju.");
+            Console.WriteLine("Nie możesz wyjść z tego pokoju.");
             return;
         }else if (!karta)
         {
-            WriteIfNoTest("Nie masz karty, nie możesz wyjść.");
+            Console.WriteLine("Nie masz karty, nie możesz wyjść.");
             return;
         }else if (!zasilanie)
         {
-            WriteIfNoTest("Zasilanie jest wyłączone, nie możesz wyjść.");            
+            Console.WriteLine("Zasilanie jest wyłączone, nie możesz wyjść.");            
             return;
         }
         ostatniaCzynnosc = "Wyjście i wygrana";
