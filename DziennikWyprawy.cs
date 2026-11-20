@@ -9,13 +9,11 @@ class DziennikWyprawy
     }
     public void DodajWpis(string? tresc)
     {
-        if(tresc == "" || tresc == null)
+        string? nowaTresc = tresc.Trim();
+        if(nowaTresc == "" || nowaTresc == null)
         {
             return;
         }
-
-        string? nowaTresc = tresc.Trim();
-        
         
         for(int i=0;i<this._wpisy.Length;i++)
         {
