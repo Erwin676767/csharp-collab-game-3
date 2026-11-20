@@ -16,9 +16,8 @@
 | `string PobierzWpis(int indeks)` | Zajęte wpisy mają indeksy 0..LiczbaWpisow-1, od najstarszego. Dla innych indeksów zwraca pusty napis; nie rzuca wyjątku w tym ćwiczeniu. |
 | `void Reset()` | Cztery flagi odkryć: tylko pokój 1 odwiedzony; dziennik pusty, LiczbaWpisow=0. Czyści także stare teksty w tablicy. Nie tworzy drugiego obiektu. |
 | `string[] _wpisy = {"","",""} ` | Tablica ktora przechowuje 3 ostatnie wpisy.|
-| `bool[] _odwiedzonePokoje = new bool[_pokoje.Length];` | Przenosimy do klasy, bo tutaj zliczamy liczbe odwiedzonych - patrz 2 składowa|
-| `string[] _pokoje = { "Recepcja", "Magazyn", "Serwerowania", "Wyjście"};` | Tablica z nazwami pokoi, numerowanych indeksami po kolei. Przenosimy do klasy gdy chcemy zachowac zaleznosc rozmiaru tablicy _odwiedzonePokoje|
-| `string PobierzPokoj(int indeks)` | indeksy od 0 do 3, zwraca pokoj. Jest to 'getter' do tablicy _pokoje[], w taki sposób robimy refactor i tablica będzie elementem klasy.|
+| `bool[] _odwiedzonePokoje = new bool[4];` | Przenosimy do klasy, bo tutaj zliczamy liczbe odwiedzonych - patrz 2 składowa|
+
 
 
 ## 3. Wymagany rezultat i kontrakt
