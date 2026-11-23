@@ -2,6 +2,7 @@ class DziennikWyprawy
 {
     private string[] _wpisy = {"","",""};
     private bool[] _odwiedzonePokoje = new bool[4];
+    public int LiczbaWpisow { get; private set; }
 
     public int LiczbaOdwiedzonych 
     {
@@ -21,9 +22,37 @@ class DziennikWyprawy
 
     public DziennikWyprawy()
     {
-        Reset();
+        Reset(); 
     }
+    public void DodajWpis(string? tresc)
+    {
+        string? nowaTresc = tresc.Trim();
+        if(nowaTresc == "" || nowaTresc == null)
+        {
+            return;
+        }
+        
+        for(int i=0;i<this._wpisy.Length;i++)
+        {
+            
+            if(this._wpisy[i] == "")
+            {
+                this._wpisy[i] = nowaTresc;
+                this.LiczbaWpisow+=1;
+                return;
+            }
+            
+        }
+        this._wpisy[0]=this._wpisy[1];
+        this._wpisy[1]=this._wpisy[2];
+        this._wpisy[2]=nowaTresc;
+        
 
+    }
+    
+    public string PobierzWpis(int indeks){
+        return this._wpisy[index];
+    }
     public void Reset()
     {
         _odwiedzonePokoje[0] = true;
