@@ -239,7 +239,7 @@ void Mapa()
     Console.WriteLine("");
     for (int numer = 1; numer <= 4; numer++) 
     {
-        string odkryte = dziennik.CzyOdwiedzono(numer-1) ? "odkryty" : "nieodkryty";
+        string odkryte = dziennik.CzyOdwiedzono(numer) ? "odkryty" : "nieodkryty";
         if (numer == pokoj)
             Console.WriteLine($"{numer}. {NazwaPokoju(numer)} ({odkryte})  <-- jestes tutaj");
         else

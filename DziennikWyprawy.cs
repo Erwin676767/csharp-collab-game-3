@@ -26,6 +26,9 @@ class DziennikWyprawy
     }
     public void DodajWpis(string? tresc)
     {
+        if(tresc == null)
+            return;
+        
         string? nowaTresc = tresc.Trim();
         if(nowaTresc == "" || nowaTresc == null)
         {
@@ -51,6 +54,9 @@ class DziennikWyprawy
     }
     
     public string PobierzWpis(int indeks){
+        if (indeks < 0 || indeks >= _wpisy.Length)
+            return "";
+        
         return this._wpisy[indeks];
     }
     public void Reset()
