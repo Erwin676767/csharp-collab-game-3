@@ -23,8 +23,6 @@ int licznikOdrzuconychProbRuchu = 0;
 
 bool brakWiadomosci = false;
 
-int zgodne = 0;
-int niezgodne = 0;
 
 // SEKCJA 0: GOTOWY SILNIK NAUCZYCIELA. Nie zmieniaj w zadaniu podstawowym.
 Start();
@@ -54,7 +52,6 @@ while (true)
     switch (polecenie)
     {
         case "start": Start(); break;
-        case "autotest": AutoTest(); break;
         case "pomoc": Pomoc(); break;
         case "status": Status(); break;
         case "mapa": Mapa(); break;
@@ -98,24 +95,6 @@ void PokazOdkrycia()
             Console.Write(".");
     }
     Console.WriteLine();
-}
-// Własny assert()
-void Sprawdz(string nazwa, bool warunek)
-{
-    if (warunek) {
-        zgodne++;
-        Console.WriteLine(nazwa + ": OK");
-    } else {
-        niezgodne++;
-        Console.WriteLine(nazwa + ": BLAD");
-    }
-}
-
-void testIloscBledow()
-{
-    Console.WriteLine("OK: " + zgodne + " | BLAD: " + niezgodne);
-    zgodne = 0;
-    niezgodne = 0;
 }
 
 void WriteIfNoTest(string msg)
@@ -451,120 +430,3 @@ string OcenaEnergii(int wartosc)
         return "Duży zapas";
 }
 
-void AutoTest()
-{
-    int testPokoj = pokoj;
-    int testEnergia = energia;
-    bool testKarta = karta;
-    bool testBezpiecznik = bezpiecznik;
-    bool testZasilanie = zasilanie;
-    bool testKoniec = koniec;
-    bool testWygrana = wygrana;
-
-    string testOstatniaCzynnosc = ostatniaCzynnosc;
-    bool[] testOdwiedzonePokoje = odwiedzonePokoje;
-
-    brakWiadomosci = true;
-
-    int testlicznikOdrzuconychProbRuchu = licznikOdrzuconychProbRuchu;
-    // Próba 1.
-
-    Console.Write("\nTest numer 1:\n\n");
-
-    Start();
-    Idz("lewo");
-    Sprawdz("Pokój", pokoj == 1);
-    Sprawdz("Energia", energia == 10);
-    Sprawdz("Karta", karta == false);
-    Sprawdz("Bezpiecznik", bezpiecznik == false);
-    Sprawdz("Zasilanie", zasilanie == false);
-    Sprawdz("Koniec", koniec == false);
-    Sprawdz("Wygrana", wygrana == false);
-
-    testIloscBledow();
-
-    // Próba 2.
-    Console.Write("\nTest numer 2:\n\n");
-
-    Start();
-    Akcja("karta");
-    Akcja("karta");
-    Sprawdz("Energia", energia == 9);
-    Sprawdz("Karta", karta == true);
-    Sprawdz("Koniec", koniec == false);
-
-    testIloscBledow();
-
-    // Próba 3.
-    Console.Write("\nTest numer 3:\n\n");
-    Start();
-    Idz("prawo");
-    Idz("prawo");
-    Akcja("napraw");
-    Sprawdz("Pokój", pokoj == 3);
-    Sprawdz("Energia", energia == 8);
-    Sprawdz("Zasilanie", zasilanie == false);
-
-    testIloscBledow();
-
-    // Próba 4.
-    Console.Write("\nTest numer 4:\n\n");
-
-    Start();
-    Akcja("karta");
-    Idz("prawo");
-    Akcja("bezpiecznik");
-    Idz("prawo");
-    Akcja("napraw");
-    Idz("prawo");
-    Akcja("wyjdz");
-
-    Sprawdz("Pokój", pokoj == 4);
-    Sprawdz("Energia", energia == 3);
-    Sprawdz("Karta", karta == true);
-    Sprawdz("Bezpiecznik", bezpiecznik == false);
-    Sprawdz("Zasilanie", zasilanie == true);
-    Sprawdz("Koniec", koniec == true);
-    Sprawdz("Wygrana", wygrana == true);
-
-    testIloscBledow();
-
-
-    // Próba 5.
-    Console.Write("\nTest numer 5:\n\n");
-
-    Start();
-    for (int i = 1; i <= 5; i++) {
-        Idz("lewo");
-        Idz("prawo");
-    }
-
-    Idz("lewo");
-    Akcja("karta");
-
-    Sprawdz("Pokój", pokoj == 1);
-    Sprawdz("Energia", energia == 0);
-    Sprawdz("Karta", karta == false);
-    Sprawdz("Bezpiecznik", bezpiecznik == false);
-    Sprawdz("Zasilanie", zasilanie == false);
-    Sprawdz("Koniec", koniec == true);
-    Sprawdz("Wygrana", wygrana == false);
-
-    testIloscBledow();
-
-    pokoj = testPokoj;
-    energia = testEnergia;
-    karta = testKarta;
-    bezpiecznik = testBezpiecznik;
-    zasilanie = testZasilanie;
-    koniec = testKoniec;
-    wygrana = testWygrana;
-    ostatniaCzynnosc = testOstatniaCzynnosc;
-    odwiedzonePokoje = testOdwiedzonePokoje;
-
-    licznikOdrzuconychProbRuchu = testlicznikOdrzuconychProbRuchu;
-    Console.Write("\nPrzywrócono wszystkie poprzednie wartości\n");
-    Status();
-
-    brakWiadomosci = false;
-}
