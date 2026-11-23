@@ -51,20 +51,21 @@ class DziennikWyprawy
     }
     
     public string PobierzWpis(int indeks){
-        return this._wpisy[index];
+        return this._wpisy[indeks];
     }
     public void Reset()
     {
-        _odwiedzonePokoje[0] = true;
+        this._odwiedzonePokoje[0] = true;
         for (int i = 1; i < 4; i++)
         {
-            _odwiedzonePokoje[i] = false;
+            this._odwiedzonePokoje[i] = false;
         }
         for (int i = 0; i < 3; i++)
         {
-            _wpisy[i] = "";
+            this._wpisy[i] = "";
         }
-        //todo liczba wpisow
+        this.LiczbaWpisow = 0;
+        
     }
     public void Odwiedz(int numer)
     {
