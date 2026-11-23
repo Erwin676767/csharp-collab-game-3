@@ -46,10 +46,10 @@ class DziennikWyprawy
     }
     public bool CzyOdwiedzono(int numer)
     {
-        if (numer < 1 && numer > 4)
+        if (numer > 0 && numer < 5)
         {
-            return false;
+            return _odwiedzonePokoje[numer-1];
         }
-        return _odwiedzonePokoje[numer-1];
+        return false;
     }
 }
